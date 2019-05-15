@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<table class='table'>
+	
+		<tr>
+			<th>Title</th>
+			<th>Type</th>
+			<th>Link</th>
+		</tr>
+
+
+		{% for t in resources_list %}
+
+		<tr>
+			<td>{{t.name}}</td>
+			<td>{{t.resourceType}}</td>
+			<td><a href="{{t.url}}" target="_blank">{{t.url}}</td>
+		</tr>
+
+
+		{% endfor %}
+
+	</table>
+
+	
+{% endblock %}
