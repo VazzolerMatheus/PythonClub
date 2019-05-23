@@ -23,7 +23,7 @@ class MeetingMinutes(models.Model):
     minutesText = models.CharField(max_length=255)
 
     def __str__ (self):
-        return self.meeting
+        return self.attendance
 
     class Meta:
         db_table='MeetingMinutes'

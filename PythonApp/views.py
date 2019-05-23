@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Resource
+from django.shortcuts import render, get_object_or_404
+from .models import Resource, Meeting, MeetingMinutes
 
 # Create your views here.
 
@@ -12,3 +12,27 @@ def getResources(request):
 	resources_list = Resource.objects.all()
 
 	return render(request, 'PythonApp/resources.html', {'resources_list' : resources_list})
+
+def getMeetings(request):
+
+				#NAME_OF_THE_TABLE.objects.all()
+	meetings_list = Meeting.objects.all()
+
+	return render(request, 'PythonApp/meetings.html', {'meetings_list' : meetings_list})
+
+def meetingDetails(request, id):
+
+	#setting meeting = Meeting table
+	meeting = get_object_or_404(Meeting, pk=id)
+
+
+	#setting details = MeetingMinutes table
+	details = MeetingMinutes.objects.filter(meeting = id)
+
+	context = {
+
+		'meeting' : meeting,
+		'details' :  details,
+	}
+
+	return render(request, 'PythonApp/meetingdetails.html', context= context)
