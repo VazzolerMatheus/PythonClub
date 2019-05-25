@@ -5,7 +5,7 @@ from . import views
 urlpatterns=[
 
    #index is a function inside the view.py file
-   path('PythonApp/', views.index, name='index'),
+   path('', views.index, name='index'),
 
    path('getResources/', views.getResources, name='resources'),
 
@@ -14,7 +14,14 @@ urlpatterns=[
    path('meetingdetails/<int:id>/', views.meetingDetails, name='meetingdetails'),
 
    #url for the forms NewResouce
-   path('newresource/', views.newResource, name="newresource")
+   path('newresource/', views.newResource, name="newresource"),
+
+
+   # login and logou messages in html
+   path('loginmessage/', views.loginmessage, name='loginmessage'),
+   
+   path('logoutmessage/', views.logoutmessage, name='logoutmessage'),
+
   	
   	#First atribute on Path("ex/") is just the directory that will appear on the navigation bar
 

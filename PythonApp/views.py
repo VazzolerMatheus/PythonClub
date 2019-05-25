@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Resource, Meeting, MeetingMinutes
 from .forms import ResourceForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -41,6 +42,8 @@ def meetingDetails(request, id):
 
 
 # Views for FORMS _______ Start here __________
+
+@login_required
 def newResource(request):
 
 	#create instance of class ResourceForm named 'form'
@@ -56,10 +59,18 @@ def newResource(request):
 	else:
 		form=ResourceForm()
 
-	return render(request, 'PythonApp/newresource.html', {'form' : form})
-
-
-
 
 # Views for FORMS _______ Ends here __________
+
+
+
+	return render(request, 'PythonApp/newresource.html', {'form' : form})
+
+def loginmessage(request):
+	return render(request, 'PythonApp/login.html')
+
+def logoutmessage(request):
+	return render(request, 'PythonApp/logout.html')
+
+
 
