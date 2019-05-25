@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Resource, Meeting, MeetingMinutes
+from .forms import ResourceForm
 
 # Create your views here.
 
@@ -15,7 +16,7 @@ def getResources(request):
 
 def getMeetings(request):
 
-				#NAME_OF_THE_TABLE.objects.all()
+				# NAME_OF_THE_TABLE.objects.all()
 	meetings_list = Meeting.objects.all()
 
 	return render(request, 'PythonApp/meetings.html', {'meetings_list' : meetings_list})
@@ -36,3 +37,29 @@ def meetingDetails(request, id):
 	}
 
 	return render(request, 'PythonApp/meetingdetails.html', context= context)
+
+
+
+# Views for FORMS _______ Start here __________
+def newResource(request):
+
+	#create instance of class ResourceForm named 'form'
+	form = ResourceForm
+
+	if request.method == 'POST':
+		form = ResourceForm(request.POST)
+
+		if form.is_valid():
+			post=form.save(commit=True)
+			post.save()
+			form=ResourceForm()
+	else:
+		form=ResourceForm()
+
+	return render(request, 'PythonApp/newresource.html', {'form' : form})
+
+
+
+
+# Views for FORMS _______ Ends here __________
+
