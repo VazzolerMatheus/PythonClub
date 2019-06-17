@@ -1,21 +1,11 @@
 from django.test import TestCase
 from .models import Meeting, MeetingMinutes, Resource, Event
 from django.utils import timezone
-from .views import getResources, getMeetings, meetingDetails
+from .views import getResources, getMeetings, meetingDetails, newResource
+from .forms import ResourceForm
 from django.urls import reverse
-# class Meeting_test(TestCase):
-#     def create_meeting(self, title="test title", location="test location", agenda="test agenda"):
-#         return Meeting.objects.create(title=title, date=timezone.now(), time=timezone.now(), location=location, agenda=agenda )
+from django.contrib.auth import get_user_model
 
-#     def test_meeting_creation(self):
-#         a = self.create_meeting()
-#         self.assertTrue(isinstance(a, Meeting))
-    
-#     def test_each_key(self):
-#         a = self.create_meeting()
-#         self.assertEqual("test title", a.title)
-#         self.assertEqual("test location", a.location)
-#         self.assertEqual("test agenda", a.agenda)
 
 
 
@@ -61,6 +51,16 @@ class meetingDetails_test(TestCase):
         # Assert that self.post is actually returned by the post_detail view
         self.assertEqual(response.status_code, 200)
 #__________________________________________________________________________________________
+
+
+class newResource_test(TestCase):
+    def setUp(self):
+        user = get_user_model().objects.create_user('zoidberg')
+        self.entry = Resource.objects.create(user=user, name='testname', resourceType='resourceType', url='testurl', dateEntered=timezone.now(), description='testdescription')
+
+    def test_init(self):
+        ResourceForm(entry = self.entry)
+
 
     # meeting = models.ForeignKey(Meeting, on_delete = models.DO_NOTHING)
     # attendance = models.CharField(max_length=255)
